@@ -162,3 +162,9 @@ echo $advice;
 ## Вывод
 
 В ходе лабораторной работы освоены условные конструкции и циклы в PHP. Реализовано динамическое расписание сотрудников с `date()`, а также продемонстрирована работа трех типов циклов с выводом промежуточных значений.
+
+## Библиография
+
+1. Официальная документация PHP: [https://www.php.net/manual/ru/](https://www.php.net/manual/ru/)
+2. Работа с циклами в PHP: [https://www.php.net/manual/ru/control-structures.for.php](https://www.php.net/manual/ru/control-structures.for.php)
+3. Функция date() в PHP: [https://www.php.net/manual/ru/function.date.php](https://www.php.net/manual/ru/function.date.php)
