@@ -116,7 +116,7 @@ for ($i = 0; $i <= 5; $i++) {
 
 Результат:
 
-![image](images/lab2.jpg)
+![image](images/lab2.png)
 
 ## Контрольные вопросы
 
