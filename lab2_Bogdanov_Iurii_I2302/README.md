@@ -90,7 +90,9 @@ for ($i = 0; $i <= 5; $i++) {
 
     echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
     ?>
+```
 
+```php
 <h2>Цикл do-while</h2>
 
     <?php
