@@ -73,27 +73,41 @@ for ($i = 0; $i <= 5; $i++) {
 3. Реализуйте аналогичный код с `while` и `do-while`:
 
 ```php
-// Цикл while
-$a = 0;
-$b = 0;
-$i = 0;
-while ($i <= 5) {
-    $a += 10;
-    $b += 5;
-    echo "a = $a, b = $b <br>";
-    $i++;
-}
+<h2>Цикл while</h2>
 
-// Цикл do-while
-$a = 0;
-$b = 0;
-$i = 0;
-do {
-    $a += 10;
-    $b += 5;
-    echo "a = $a, b = $b <br>";
-    $i++;
-} while ($i <= 5);
+    <?php
+    $a = 0;
+    $b = 0;
+    $i = 0;
+    echo "<p>Initial values: a = $a, b = $b</p>";
+
+    while ($i <= 5) {
+        $a += 10;
+        $b += 5;
+        echo "<p>a = $a, b = $b</p>";
+        $i++;
+    }
+
+    echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
+    ?>
+
+<h2>Цикл do-while</h2>
+
+    <?php
+    $a = 0;
+    $b = 0;
+    $i = 0;
+    echo "<p>Initial values: a = $a, b = $b</p>";
+
+    do {
+        $a += 10;
+        $b += 5;
+        echo "<p>a = $a, b = $b</p>";
+        $i++;
+    } while ($i <= 5);
+
+    echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
+    ?>
 ```
 
 ---
