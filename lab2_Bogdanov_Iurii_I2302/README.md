@@ -44,7 +44,6 @@ function getSchedule($weekDay, $employee) {
     return 'Ошибка: неизвестный сотрудник';
 }
 
-$weekDay = date('l');
 $employees = [
     ['1', 'John Styles', getSchedule($weekDay, 'John Styles')],
     ['2', 'Jane Doe', getSchedule($weekDay, 'Jane Doe')]
