@@ -95,7 +95,7 @@ echo "<p>Initial values: a = $a, b = $b</p>";
 for ($i = 0; $i <= 5; $i++) {
    $a += 10;
    $b += 5;
-   echo "Шаг $i: a = $a, b = $b <br>";
+   echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
 }
 ?>
 ```
