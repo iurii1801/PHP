@@ -86,18 +86,19 @@ for ($i = 0; $i <= 5; $i++) {
 ```php
 <h2>Цикл for</h2>
 
-<?php
-$a = 0;
-$b = 0;
+    <?php
+    $a = 0;
+    $b = 0;
+    echo "<p>Initial values: a = $a, b = $b</p>";
 
-echo "<p>Initial values: a = $a, b = $b</p>";
+    for ($i = 0; $i <= 5; $i++) {
+        $a += 10;
+        $b += 5;
+        echo "<p>a = $a, b = $b</p>";
+    }
 
-for ($i = 0; $i <= 5; $i++) {
-   $a += 10;
-   $b += 5;
-   echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
-}
-?>
+    echo "<p><b>End of the loop: a = $a, b = $b</b></p>";
+    ?>
 ```
 
 ```php
