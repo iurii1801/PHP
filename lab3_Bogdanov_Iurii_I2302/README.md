@@ -100,6 +100,9 @@ $transactions = [
 ```php
 /**
  * Вычисляет общую сумму всех транзакций.
+ *
+ * @param array $transactions Массив транзакций
+ * @return float Общая сумма всех транзакций
  */
 function calculateTotalAmount(array $transactions): float {
     return array_sum(array_column($transactions, 'amount'));
@@ -122,9 +125,13 @@ echo "Total amount: $total";
 ---
 
 **Функция `findTransactionByDescription`**
+
 ```php
 /**
  * Ищет транзакцию по части описания.
+ *
+ * @param string $desc Часть описания
+ * @return array|null Найденная транзакция или null, если не найдена
  */
 function findTransactionByDescription(string $desc) {
     global $transactions;
@@ -152,6 +159,9 @@ print_r($result);
 ```php
 /**
  * Ищет транзакцию по ID (с использованием foreach).
+ *
+ * @param int $id ID транзакции
+ * @return array|null Найденная транзакция или null, если не найдена
  */
 function findTransactionById(int $id) {
     global $transactions;
@@ -184,6 +194,9 @@ print_r($transaction);
 ```php
 /**
  * Ищет транзакцию по ID (с использованием array_filter).
+ *
+ * @param int $id ID транзакции
+ * @return array|null Найденная транзакция или null, если не найдена
  */
 function findTransactionByIdFiltered(int $id) {
     global $transactions;
@@ -211,6 +224,9 @@ print_r($transaction);
 ```php
 /**
  * Возвращает количество дней между датой транзакции и текущей датой.
+ *
+ * @param string $date Дата транзакции в формате YYYY-MM-DD
+ * @return int Количество дней с момента транзакции
  */
 function daysSinceTransaction(string $date): int {
     $transactionDate = new DateTime($date);
@@ -240,6 +256,13 @@ echo "Days since transaction: $days";
 ```php
 /**
  * Добавляет новую транзакцию в массив.
+ *
+ * @param int $id ID транзакции
+ * @param string $date Дата транзакции (YYYY-MM-DD)
+ * @param float $amount Сумма транзакции
+ * @param string $desc Описание транзакции
+ * @param string $merchant Магазин, получивший платеж
+ * @return void
  */
 function addTransaction(int $id, string $date, float $amount, string $desc, string $merchant): void {
     global $transactions;
