@@ -25,9 +25,7 @@ $transactions = [
  * @return float Общая сумма всех транзакций
  */
 function calculateTotalAmount(array $transactions): float {
-    $total = 0;
-    foreach ($transactions as $t) $total += $t['amount'];
-    return $total;
+    return array_sum(array_column($transactions, 'amount'));
 }
 
 /**
@@ -38,8 +36,7 @@ function calculateTotalAmount(array $transactions): float {
  */
 function findTransactionByDescription(string $desc) {
     global $transactions;
-    foreach ($transactions as $t) if (strpos($t['description'], $desc) !== false) return $t;
-    return null;
+    return array_filter($transactions, fn($t) => strpos($t['description'], $desc) !== false);
 }
 
 /**
@@ -50,7 +47,11 @@ function findTransactionByDescription(string $desc) {
  */
 function findTransactionById(int $id) {
     global $transactions;
-    foreach ($transactions as $t) if ($t['id'] === $id) return $t;
+    foreach ($transactions as $t) {
+        if ($t['id'] === $id) {
+            return $t;
+        }
+    }
     return null;
 }
 
@@ -67,13 +68,15 @@ function findTransactionByIdFiltered(int $id) {
 }
 
 /**
- * Считает количество дней с момента транзакции.
+ * Возвращает количество дней между датой транзакции и текущей датой.
  *
  * @param string $date Дата транзакции в формате YYYY-MM-DD
  * @return int Количество дней с момента транзакции
  */
 function daysSinceTransaction(string $date): int {
-    return (strtotime(date("Y-m-d")) - strtotime($date)) / 86400;
+    $transactionDate = new DateTime($date);
+    $now = new DateTime();
+    return $transactionDate->diff($now)->days;
 }
 
 /**
@@ -91,8 +94,8 @@ function addTransaction(int $id, string $date, float $amount, string $desc, stri
     $transactions[] = ["id" => $id, "date" => $date, "amount" => $amount, "description" => $desc, "merchant" => $merchant];
 }
 
-// Сортировка по дате (по возрастанию)
-usort($transactions, fn($a, $b) => strtotime($a['date']) - strtotime($b['date']));
+// Сортировка по дате (по возрастанию) с использованием DateTime
+usort($transactions, fn($a, $b) => (new DateTime($a['date'])) <=> (new DateTime($b['date'])));
 
 // Сортировка по сумме (по убыванию)
 usort($transactions, fn($a, $b) => $b['amount'] - $a['amount']);
