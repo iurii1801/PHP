@@ -493,5 +493,5 @@ print_r($images); // Выведет список всех изображений
 1. Официальная документация PHP: [https://www.php.net/manual/ru/](https://www.php.net/manual/ru/function.usort.php)
 2. Работа с массивами в PHP: [https://www.php.net/manual/ru/language.types.array.php](https://www.php.net/manual/ru/language.types.array.php)
 3. Функция foreach в PHP: [https://www.php.net/manual/ru/control-structures.foreach.php](https://www.php.net/manual/ru/control-structures.foreach.php)
-4. Работа с файлами и директориями (scandir()): [https://www.php.net/manual/ru/function.scandir.php](https://www.php.net/manual/ru/function.scandir.php)
-5. Сортировка массивов (usort()): [https://www.php.net/manual/ru/function.usort.php](https://www.php.net/manual/ru/function.usort.php)
+4. Работа с файлами и директориями (`scandir()`): [https://www.php.net/manual/ru/function.scandir.php](https://www.php.net/manual/ru/function.scandir.php)
+5. Сортировка массивов (`usort()`): [https://www.php.net/manual/ru/function.usort.php](https://www.php.net/manual/ru/function.usort.php)
