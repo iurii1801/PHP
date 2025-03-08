@@ -95,6 +95,8 @@ $transactions = [
 
 ### 1.4 Реализация функций
 
+**Функция `calculateTotalAmount`**
+
 ```php
 /**
  * Вычисляет общую сумму всех транзакций.
@@ -119,6 +121,7 @@ echo "Total amount: $total";
 
 ---
 
+**Функция `findTransactionByDescription`**
 ```php
 /**
  * Ищет транзакцию по части описания.
@@ -143,6 +146,8 @@ print_r($result);
 ```
 
 ---
+
+**Функция `findTransactionById`**
 
 ```php
 /**
@@ -174,6 +179,8 @@ print_r($transaction);
 
 ---
 
+**Функция `findTransactionByIdFiltered`**
+
 ```php
 /**
  * Ищет транзакцию по ID (с использованием array_filter).
@@ -198,6 +205,8 @@ print_r($transaction);
 ```
 
 ---
+
+**Функция `daysSinceTransaction`**
 
 ```php
 /**
@@ -225,6 +234,8 @@ echo "Days since transaction: $days";
 ```
 
 ---
+
+**Функция `addTransaction`**
 
 ```php
 /**
