@@ -20,6 +20,8 @@
 - **Создайте файл `index.php`**  
 - **Добавьте строгую типизацию:**
 
-```php
-<?php
-declare(strict_types=1);
+ ```php
+   <?php
+
+   declare(strict_types=1);
+   ```
