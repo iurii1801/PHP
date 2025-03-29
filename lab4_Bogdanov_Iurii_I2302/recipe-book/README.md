@@ -89,7 +89,7 @@ file_put_contents('<filename>', json_encode($formData) . PHP_EOL, FILE_APPEND);
    - `/recipe/index.php?page=3` — отобразить 3 страницу рецептов.
    - Если страница не указана, отобразите первую страницу.
 
-## Выролнение
+## Выполнение
 
 ### Структура проекта
 
