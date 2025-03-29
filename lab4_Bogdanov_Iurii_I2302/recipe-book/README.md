@@ -116,10 +116,22 @@ RECIPE-BOOK/
 Выводит два последних добавленных рецепта. Используются функции `file()`, `array_map()`, `json_decode()` и `array_slice()`.
 
 ```php
+$filepath = __DIR__ . '/../storage/recipes.txt';
 $recipes = file_exists($filepath)
     ? array_reverse(array_map('json_decode', file($filepath)))
     : [];
 $latest = array_slice($recipes, 0, 2);
+```
+
+```php
+<?php foreach ($latest as $recipe): ?>
+    <div>
+        <h3><?= htmlspecialchars($recipe->title) ?></h3>
+        <p><strong>Категория:</strong> <?= htmlspecialchars($recipe->category) ?></p>
+        <p><strong>Описание:</strong> <?= nl2br(htmlspecialchars($recipe->description)) ?></p>
+        <hr>
+    </div>
+<?php endforeach; ?>
 ```
 
 **Краткое пояснение:**
@@ -130,37 +142,39 @@ $latest = array_slice($recipes, 0, 2);
 
 ---
 
+
 ### 2. `public/recipe/create.php` – Форма добавления рецепта
 
-HTML-страница с формой. Поддерживает ввод:
-
-- Названия рецепта
-- Категории (select)
-- Ингредиентов и описания (textarea)
-- Тегов (select multiple)
-- Шагов приготовления (с добавлением шагов через JavaScript)
+HTML-форма для создания нового рецепта. Данные формы отправляются методом POST в `save_recipe.php`.
 
 ```php
-$errors = $_SESSION['errors'] ?? [];
-$old = $_SESSION['old'] ?? [];
-unset($_SESSION['errors'], $_SESSION['old']);
+<form action="/handlers/save_recipe.php" method="post">
+    <input type="text" name="title" required>
+    <select name="category">
+        <option value="Супы">Супы</option>
+        <option value="Салаты">Салаты</option>
+    </select>
+    <textarea name="ingredients" required></textarea>
+    <textarea name="description" required></textarea>
+    <select name="tags[]" multiple>
+        <option value="Быстрый">Быстрый</option>
+        <option value="Веган">Веган</option>
+    </select>
 ```
-
-**JavaScript:**
 
 ```js
 function addStep() {
-  document.getElementById('steps')
-    .insertAdjacentHTML('beforeend', '<input type="text" name="steps[]" required><br>');
+    document.getElementById('steps')
+        .insertAdjacentHTML('beforeend', '<input type="text" name="steps[]" required><br>');
 }
 document.getElementById('add-step').onclick = addStep;
 ```
 
 **Краткое пояснение:**
 
-- В случае ошибок ввода данные сохраняются в `$_SESSION`, чтобы форма не очищалась.
-- Поддержка динамического добавления полей позволяет вводить произвольное количество шагов рецепта.
-- Страница валидирует обязательные поля и предоставляет удобный пользовательский интерфейс.
+- При ошибках данные сохраняются в сессии (`$_SESSION['errors']`, `$_SESSION['old']`).
+- Используется JavaScript для динамического добавления полей шагов.
+- Все поля обязательны для заполнения и валидируются на сервере.
 
 ---
 
@@ -290,3 +304,124 @@ php -S localhost:8000 -t public
 3. Работа с файлами в PHP: [https://www.php.net/manual/ru/function.file.php](https://www.php.net/manual/ru/function.file.php)
 4. Работа с JSON в PHP: [https://www.php.net/manual/ru/function.json-decode.php](https://www.php.net/manual/ru/function.json-decode.php)
 5. Работа с формами и сессиями: [https://www.php.net/manual/ru/reserved.variables.session.php](https://www.php.net/manual/ru/reserved.variables.session.php)
+
+
+
+
+### 4. `public/handlers/save_recipe.php` – Сохранение рецепта
+
+Получает данные POST, фильтрует и валидирует, сохраняет в файл.
+
+```php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = sanitize($_POST['title'] ?? '');
+    $category = sanitize($_POST['category'] ?? '');
+    $ingredients = sanitize($_POST['ingredients'] ?? '');
+    $description = sanitize($_POST['description'] ?? '');
+    $tags = $_POST['tags'] ?? [];
+    $steps = array_filter(array_map('sanitize', $_POST['steps'] ?? []));
+
+    $formData = [
+        'title' => $title,
+        'category' => $category,
+        'ingredients' => $ingredients,
+        'description' => $description,
+        'tags' => $tags,
+        'steps' => $steps,
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+```
+
+```php
+    $errors = validate($formData);
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        $_SESSION['old'] = $_POST;
+        header('Location: /recipe/create.php');
+        exit;
+    }
+
+    file_put_contents(__DIR__ . '/../../storage/recipes.txt', json_encode($formData, JSON_UNESCAPED_UNICODE) . PHP_EOL, FILE_APPEND);
+    header('Location: /index.php');
+    exit;
+}
+```
+
+**Краткое пояснение:**
+- Выполняет фильтрацию (`sanitize`) и валидацию (`validate`).
+- При успехе сохраняет JSON-объект в файл и делает редирект.
+- При ошибке возвращает пользователя на форму.
+
+---
+
+### 5. `src/helpers.php` – Утилиты
+
+```php
+function sanitize(string $data): string {
+    return htmlspecialchars(strip_tags(trim($data)));
+}
+
+function validate(array $data): array {
+    $errors = [];
+    if (empty($data['title'])) $errors['title'] = 'Введите название рецепта';
+    if (empty($data['category'])) $errors['category'] = 'Выберите категорию';
+    if (empty($data['steps']) || count(array_filter($data['steps'])) === 0) {
+        $errors['steps'] = 'Добавьте хотя бы один шаг приготовления';
+    }
+    return $errors;
+}
+```
+
+**Краткое пояснение:**
+- `sanitize()` защищает данные от HTML и скриптов.
+- `validate()` проверяет наличие обязательных полей.
+- Позволяет переиспользовать код без дублирования.
+
+---
+
+### 6. `storage/recipes.txt`
+
+Файл хранения всех рецептов в формате JSON:
+
+```json
+{"title":"Салат","category":"Салаты","ingredients":"Огурцы, помидоры","description":"Легкий салат","tags":["Быстрый"],"steps":["Порезать","Смешать"],"created_at":"2025-03-29 14:00:00"}
+```
+
+**Краткое пояснение:**
+- Один рецепт — одна строка.
+- JSON удобен для хранения и последующей обработки.
+- Используется как простая альтернатива базе данных.
+
+---
+
+## Как запустить проект
+
+```bash
+php -S localhost:8000 -t public
+```
+Перейти в браузере по адресу: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## Контрольные вопросы
+
+**1. Какие методы HTTP применяются для отправки данных формы?**  
+→ POST (в проекте используется для отправки формы)
+
+**2. Что такое валидация и чем она отличается от фильтрации?**  
+→ Валидация — проверка корректности данных (непустые поля, правильные значения).  
+→ Фильтрация — очистка данных от HTML-тегов, пробелов, XSS-уязвимостей.
+
+**3. Какие функции PHP используются для фильтрации данных?**  
+→ `trim()`, `strip_tags()`, `htmlspecialchars()` — используются в функции `sanitize()`.
+
+---
+
+## Библиография
+
+1. Официальная документация PHP: https://www.php.net/manual/ru/
+2. Работа с массивами в PHP: https://www.php.net/manual/ru/language.types.array.php
+3. Работа с файлами в PHP: https://www.php.net/manual/ru/function.file.php
+4. Работа с JSON в PHP: https://www.php.net/manual/ru/function.json-decode.php
+5. Работа с формами и сессиями: https://www.php.net/manual/ru/reserved.variables.session.php
+
