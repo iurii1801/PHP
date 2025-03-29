@@ -291,6 +291,7 @@ php -S localhost:8000 -t public
 ![image](https://i.imgur.com/1Rlf0t9.png)
 
 - **Страница со всеми рецептами**
+
 ![image](https://i.imgur.com/wRBSPJU.png)
 
 ## Контрольные вопросы
