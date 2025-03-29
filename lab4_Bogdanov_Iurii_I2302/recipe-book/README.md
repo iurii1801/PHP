@@ -211,8 +211,8 @@ php -S localhost:8000 -t public
 
 ## Библиография
 
-1. Официальная документация PHP: [https://www.php.net/manual/ru/]
-2. Работа с массивами в PHP: [https://www.php.net/manual/ru/language.types.array.php]
-3. Работа с файлами в PHP: [https://www.php.net/manual/ru/function.file.php]
-4. Работа с JSON в PHP: [https://www.php.net/manual/ru/function.json-decode.php]
-5. Работа с формами и сессиями: [https://www.php.net/manual/ru/reserved.variables.session.php]
+1. Официальная документация PHP: [https://www.php.net/manual/ru/](https://www.php.net/manual/ru/)
+2. Работа с массивами в PHP: [https://www.php.net/manual/ru/language.types.array.php](https://www.php.net/manual/ru/language.types.array.php)
+3. Работа с файлами в PHP: [https://www.php.net/manual/ru/function.file.php](https://www.php.net/manual/ru/function.file.php)
+4. Работа с JSON в PHP: [https://www.php.net/manual/ru/function.json-decode.php](https://www.php.net/manual/ru/function.json-decode.php)
+5. Работа с формами и сессиями: [https://www.php.net/manual/ru/reserved.variables.session.php](https://www.php.net/manual/ru/reserved.variables.session.php)
