@@ -1,0 +1,203 @@
+/* === Общие стили === */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 30px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+nav {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #3498db;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #1d6fa5;
+}
+
+/* === Унифицированные кнопки === */
+.button,
+.details-button,
+.delete-button,
+.back-link {
+    display: inline-block;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.button,
+.back-link,
+.details-button {
+    background-color: #6c63ff;
+    color: white;
+}
+
+.button:hover,
+.back-link:hover,
+.details-button:hover {
+    background-color: #5146e1;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
+
+/* === Форма (только большая) === */
+form.main-form {
+    background: #fff;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+}
+
+form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 18px;
+    font-size: 16px;
+}
+
+form input[type="text"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+form select[multiple] {
+    height: 120px;
+}
+
+form.main-form button {
+    margin-top: 15px;
+}
+
+/* Для форм-кнопок в строку */
+.form-inline {
+    display: inline;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* === Список рецептов === */
+ul.recipe-list {
+    list-style: none;
+    padding: 0;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+ul.recipe-list li {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    font-size: 18px;
+}
+
+ul.recipe-list strong {
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+.actions {
+    margin-top: 10px;
+}
+
+.actions a,
+.actions form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+/* === Страница рецепта === */
+.recipe-container {
+    max-width: 800px;
+    margin: 30px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    font-size: 18px;
+}
+
+.recipe-container h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.recipe-container h3 {
+    margin-top: 25px;
+    font-size: 22px;
+    color: #333;
+}
+
+.recipe-container p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.recipe-container ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.recipe-container ol li {
+    margin-bottom: 8px;
+}
+
+.back-link {
+    margin-right: 10px;
+}
+
+/* === Пагинация === */
+nav.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav.pagination a,
+nav.pagination strong {
+    margin: 0 6px;
+    font-size: 18px;
+}
